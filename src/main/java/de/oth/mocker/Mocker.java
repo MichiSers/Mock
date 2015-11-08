@@ -29,14 +29,14 @@ public interface Mocker
 
 	}
 	
-	public static void main(String[] args){
-		@SuppressWarnings("unchecked")
-		List<String>	mockObject	=	mock(ArrayList.class);
-		mockObject.add("10");
-		mockObject.add("asd");
-		mockObject.add("10");
-		verify(mockObject).add("10");
-		verify(mockObject).add("asd");
-		verify(mockObject).add("5");
-	}
+//	public static void main(String[] args){
+//		@SuppressWarnings("unchecked")
+//		List<String>	mockObject	=	mock(ArrayList.class);
+//		mockObject.add("10");
+//		mockObject.add("asd");
+//		mockObject.add("10");
+//		verify(mockObject).add("10");
+//		verify(mockObject).add("asd");
+//		verify(mockObject).add("5");
+//	}
 }
