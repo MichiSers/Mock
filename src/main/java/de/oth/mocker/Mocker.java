@@ -1,6 +1,7 @@
 package de.oth.mocker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface Mocker
@@ -32,10 +33,10 @@ public interface Mocker
 		@SuppressWarnings("unchecked")
 		List<String>	mockObject	=	mock(ArrayList.class);
 		mockObject.add("10");
-		mockObject.add("10");
+		mockObject.add("asd");
 		mockObject.add("10");
 		verify(mockObject).add("10");
-
-		mockObject.add("10");
+		verify(mockObject).add("asd");
+		verify(mockObject).add("5");
 	}
 }
