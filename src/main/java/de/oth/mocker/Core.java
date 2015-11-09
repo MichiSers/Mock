@@ -8,8 +8,8 @@ public class Core
 {
 	protected boolean verification = false;
 	protected HashMap<UniqueKey, Integer> map = new HashMap<UniqueKey, Integer>();
-//	protected UniqueKey key;
-
+	protected VerificationType verType = null;
+	
 	@SuppressWarnings("unchecked")
 	public <T> T mock(Class<T> clazz, MockSettings settings)
 	{
@@ -27,9 +27,14 @@ public class Core
 
 	}
 
-	public void setVerification(boolean b)
+	public void setVerification(boolean verification)
 	{
-		verification = b;
+		this.verification = verification;
+	}
+	
+	public void setVerType(VerificationType verType)
+	{
+		this.verType = verType;
 	}
 
 }

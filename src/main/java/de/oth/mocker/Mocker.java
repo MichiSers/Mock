@@ -1,9 +1,5 @@
 package de.oth.mocker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public interface Mocker
 {
 	static final Core CORE = new Core();
@@ -20,8 +16,9 @@ public interface Mocker
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T> T spy(T object){
-		
+	public static <T> T spy(T object)
+	{
+
 		MockSettings settings = new MockSettings();
 		settings.setSpy(true);
 		return mock((Class<T>) object.getClass(), settings);
@@ -29,29 +26,46 @@ public interface Mocker
 
 	public static <T> T verify(T o)
 	{
-		if(!(o instanceof Mocker)){
-			try
-			{
-				throw new Exception("Not a mocker/spy");
-			} catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		// if(!(o instanceof Mocker)){
+		// try
+		// {
+		// throw new Exception("Not a mocker/spy");
+		// } catch (Exception e)
+		// {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+		return verify(o, new VerificationTypeFactory().times(1));
+	}
+
+	public static <T> T verify(T o, VerificationType verType)
+	{
+		CORE.setVerType(verType.getType());
 		CORE.setVerification(true);
 		return o;
 	}
 
-	public static void times()
+	public static VerificationType times(int times)
 	{
-
+		return new VerificationTypeFactory().times(times);
 	}
 
-	public static void never()
+	public static VerificationType never()
 	{
-
+		return new VerificationTypeFactory().times(0);
 	}
+	
+	public static VerificationType atLeast(int atLeast)
+	{
+		return new VerificationTypeFactory().atLeast(atLeast);
+	}
+
+	public static VerificationType atMost(int atMost)
+	{
+		return new VerificationTypeFactory().atMost(atMost);
+	}
+
 
 	// public static void main(String[] args){
 	// @SuppressWarnings("unchecked")
