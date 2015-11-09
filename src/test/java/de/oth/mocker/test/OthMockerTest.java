@@ -1,16 +1,17 @@
 package de.oth.mocker.test;
 
-import	static	de.oth.mocker.Mocker.mock;
-import	static	de.oth.mocker.Mocker.verify;
-import	static	de.oth.mocker.Mocker.spy;
-import	static	de.oth.mocker.Mocker.never;
-import	static	de.oth.mocker.Mocker.atLeast;
-import	static	de.oth.mocker.Mocker.atMost;
-import	static	de.oth.mocker.Mocker.times;
+import static de.oth.mocker.Mocker.mock;
+import static de.oth.mocker.Mocker.verify;
+import static de.oth.mocker.Mocker.spy;
+import static de.oth.mocker.Mocker.never;
+import static de.oth.mocker.Mocker.atLeast;
+import static de.oth.mocker.Mocker.atMost;
+import static de.oth.mocker.Mocker.times;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /*
@@ -19,14 +20,21 @@ import org.junit.Test;
  *
  * @author Michi, @date 03.11.15 22:32
  */
-public class OthMockerTest {
-    @Test public void testSomeLibraryMethods() {
-    	List<String>	mockObject	=	mock(ArrayList.class);
-    	mockObject.add("asd");
-    	verify(mockObject,atLeast(2)).add("asd");
-    	verify(mockObject,times(1)).add("asd");
-    	verify(mockObject).add("asd");
-    	verify(mockObject,atMost(1)).add("asd");
-    	verify(mockObject,never()).add("asd");
-    }
+public class OthMockerTest
+{
+	
+//	  @Test public void testSomeLibraryMethod() {
+//	    	List<String>	mockObject	=	mock(ArrayList.class);
+//	    	mockObject.add("asd");
+//	    	verify(mockObject).add("asd");
+//	    }
+
+	@Test public void testIfSpy()
+	{
+		List<String> list = new ArrayList<String>();
+		List<String> mockObject = mock(ArrayList.class);
+		mockObject.add("asd");
+		verify(list,never()).add("asd");
+	}
+
 }

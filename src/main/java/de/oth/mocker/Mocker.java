@@ -1,5 +1,7 @@
 package de.oth.mocker;
 
+import java.util.List;
+
 public interface Mocker
 {
 	static final Core CORE = new Core();
@@ -26,21 +28,15 @@ public interface Mocker
 
 	public static <T> T verify(T o)
 	{
-		// if(!(o instanceof Mocker)){
-		// try
-		// {
-		// throw new Exception("Not a mocker/spy");
-		// } catch (Exception e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
+		
 		return verify(o, new VerificationTypeFactory().times(1));
 	}
 
 	public static <T> T verify(T o, VerificationType verType)
 	{
+		 if(!(o instanceof Mock)){
+			 throw new RuntimeException("Not a mock/spy");
+			 }
 		CORE.setVerType(verType.getType());
 		CORE.setVerification(true);
 		return o;
@@ -66,15 +62,4 @@ public interface Mocker
 		return new VerificationTypeFactory().atMost(atMost);
 	}
 
-
-	// public static void main(String[] args){
-	// @SuppressWarnings("unchecked")
-	// List<String> mockObject = mock(ArrayList.class);
-	// mockObject.add("10");
-	// mockObject.add("asd");
-	// mockObject.add("10");
-	// verify(mockObject).add("10");
-	// verify(mockObject).add("asd");
-	// verify(mockObject).add("5");
-	// }
 }

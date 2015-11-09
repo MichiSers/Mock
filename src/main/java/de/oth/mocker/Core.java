@@ -13,18 +13,14 @@ public class Core
 	@SuppressWarnings("unchecked")
 	public <T> T mock(Class<T> clazz, MockSettings settings)
 	{
+		Class[] interfaces = {Mock.class};
 		Enhancer enhancer = new Enhancer();
 		enhancer.setSuperclass(clazz);
 		enhancer.setCallback(new CMethodInterceptor(this,settings.isSpy()));
-		
+		enhancer.setInterfaces(interfaces);
 		T mock = (T) enhancer.create();
-		
-		 if (settings.isSpy()) {
-	            new CCopyClass().copyToMock(settings.isSpy(), mock);
-	        }
-
+		System.out.println(mock.getClass());
 		return mock;
-
 	}
 
 	public void setVerification(boolean verification)

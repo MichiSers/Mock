@@ -1,8 +1,9 @@
+/.git
 /.gradle
 /.settings
 /gradle
 /.classpath
-/.build
+/build
 /.project
 /build.gradle
 /gradlew
