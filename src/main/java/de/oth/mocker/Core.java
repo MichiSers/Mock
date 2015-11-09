@@ -3,53 +3,33 @@ package de.oth.mocker;
 import java.util.HashMap;
 
 import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 
 public class Core
 {
-	boolean verification = false;
-	HashMap<UniqueKey, Integer> map = new HashMap<UniqueKey, Integer>();
-	UniqueKey key;
+	protected boolean verification = false;
+	protected HashMap<UniqueKey, Integer> map = new HashMap<UniqueKey, Integer>();
+//	protected UniqueKey key;
 
 	@SuppressWarnings("unchecked")
-	public <T> T mock(Class<T> clazz)
+	public <T> T mock(Class<T> clazz, MockSettings settings)
 	{
 		Enhancer enhancer = new Enhancer();
 		enhancer.setSuperclass(clazz);
-		enhancer.setCallback(new MethodInterceptor()
-		{
+		enhancer.setCallback(new CMethodInterceptor(this,settings.isSpy()));
+		
+		T mock = (T) enhancer.create();
+		
+		 if (settings.isSpy()) {
+	            new CCopyClass().copyToMock(settings.isSpy(), mock);
+	        }
 
-			@Override
-			public Object intercept(Object obj, java.lang.reflect.Method method, Object[] args, MethodProxy proxy)
-					throws Throwable
-			{
-				key = new UniqueKey(method.getName(), args);
-				if (verification)
-				{
-					if (map.get(key) == null)
-					{
-						System.out.println("Was not invoked");
-					} else
-					{
-						System.out.println("Was invoked " + map.get(key) + " times");
-					}
-					verification = false;
-				} else
-				{
-					int count = map.containsKey(key) ? map.get(key) : 0;
-					map.put(key, count + 1);
-					System.out.println("Count: " + count);
-				}
+		return mock;
 
-				return null;
-			}
-		});
-		return (T) enhancer.create();
 	}
 
 	public void setVerification(boolean b)
 	{
 		verification = b;
 	}
+
 }

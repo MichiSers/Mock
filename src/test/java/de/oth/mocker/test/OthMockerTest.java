@@ -2,6 +2,7 @@ package de.oth.mocker.test;
 
 import	static	de.oth.mocker.Mocker.mock;
 import	static	de.oth.mocker.Mocker.verify;
+import	static	de.oth.mocker.Mocker.spy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,14 @@ import org.junit.Test;
  */
 public class OthMockerTest {
     @Test public void testSomeLibraryMethods() {
-    	List<String>	mockObject	=	mock(ArrayList.class);
-    	mockObject.add("asd");
-    	verify(mockObject).add("asd");
+//    	List<String>	mockObject	=	mock(ArrayList.class);
+//    	mockObject.add("asd");
+//    	verify(mockObject).add("asd");
+    	List<String>	list = new ArrayList<String>();
+    	List<String>	spy	=	spy(list);
+    	spy.add("a");
+    	verify(spy).add("a");
+    	verify(list).add("a");
     	
 //        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethods());
     }
