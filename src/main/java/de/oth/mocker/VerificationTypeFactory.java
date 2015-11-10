@@ -1,5 +1,12 @@
 package de.oth.mocker;
 
+/**
+ * Creates a verification type depending on the
+ * called method.
+ * 
+ * @author Michael Stadler
+ *
+ */
 public class VerificationTypeFactory
 {
 	public VerificationType times(int times){

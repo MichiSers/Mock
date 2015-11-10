@@ -34,7 +34,7 @@ public class OthMockerTest
 		List<String> list = new ArrayList<String>();
 		List<String> mockObject = mock(ArrayList.class);
 		mockObject.add("asd");
-		verify(list,never()).add("asd");
+		verify(mockObject,never()).add("asd");
 	}
 
 }

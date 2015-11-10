@@ -3,6 +3,13 @@ package de.oth.mocker;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+/**
+ * This class is a callback for the enhancer to intercept called methods
+ * of the mock object.
+ * 
+ * @author Michael Stadler
+ *
+ */
 public class CMethodInterceptor implements MethodInterceptor
 {
 	private Core core = null;
@@ -17,6 +24,22 @@ public class CMethodInterceptor implements MethodInterceptor
 		this.isSpy = isSpy;
 	}
 
+	/**
+	 * Called when a method of the mock object is called.
+	 * Decides whether a verification process is needed or
+	 * a normal method interception.
+	 * Also distinguishes between mock and spy method calls.
+	 * 
+	 * Here the number of calls are put into a hashMap with a 
+	 * UniqueKey to be questioned later.
+	 *
+	 * 
+	 * @param obj 		the mock object
+	 * @param method		the called method
+	 * @param args		an array of the parameters
+	 * @param proxy		the original method
+	 * @return			null
+	 */
 	@Override
 	public Object intercept(Object obj, java.lang.reflect.Method method, Object[] args, MethodProxy proxy)
 			throws Throwable
@@ -37,21 +60,21 @@ public class CMethodInterceptor implements MethodInterceptor
 			{
 				if (invoked != verType.getTimes())
 				{
-					throw new Exception("Verification failure: Expected number of calls " + verType.getTimes()
+					throw new AssertionError("Verification failure: Expected number of calls " + verType.getTimes()
 							+ " but was " + invoked);
 				}
 			} else if (verType instanceof AtMost)
 			{
 				if (invoked > verType.getAtMost())
 				{
-					throw new Exception("Verification failure: Expected number of calls at most " + verType.getAtMost()
+					throw new AssertionError("Verification failure: Expected number of calls at most " + verType.getAtMost()
 							+ " but was " + invoked);
 				}
 			} else if (verType instanceof AtLeast)
 			{
 				if (invoked < verType.getAtLeast())
 				{
-					throw new Exception("Verification failure: Expected number of calls at Least "
+					throw new AssertionError("Verification failure: Expected number of calls at Least "
 							+ verType.getAtLeast() + " but was " + invoked);
 				}
 
@@ -65,11 +88,8 @@ public class CMethodInterceptor implements MethodInterceptor
 				core.map.put(key, count + 1);
 				if (isSpy == true)
 				{
-					// System.out.println("Is a spy");
-					// System.out.println("Class Name : "+proxy.getClass());
 					proxy.invokeSuper(obj, args);
 				}
-				// System.out.println("Times called: " +core.map.get(key) );
 			}
 		}
 

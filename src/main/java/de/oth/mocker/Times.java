@@ -1,5 +1,12 @@
 package de.oth.mocker;
 
+/**
+ * The times and never verification type.
+ * Only getters and setters here.
+ * 
+ * @author Michael Stadler
+ *
+ */
 public class Times implements VerificationType
 {
 	int times = 0;

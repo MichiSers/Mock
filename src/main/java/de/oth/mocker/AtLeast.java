@@ -1,5 +1,13 @@
 package de.oth.mocker;
 
+
+/**
+ * The atLeast verification type.
+ * Only getters and setters here.
+ * 
+ * @author Michael Stadler
+ *
+ */
 public class AtLeast implements VerificationType
 {
 	int times = 0;

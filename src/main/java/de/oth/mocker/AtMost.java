@@ -1,5 +1,12 @@
 package de.oth.mocker;
 
+/**
+ * The atMost verification type.
+ * Only getters and setters here.
+ * 
+ * @author Michael Stadler
+ *
+ */
 public class AtMost implements VerificationType
 {
 	int times = 0;

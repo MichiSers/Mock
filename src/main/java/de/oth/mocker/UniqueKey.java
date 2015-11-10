@@ -2,6 +2,15 @@ package de.oth.mocker;
 
 import java.util.Arrays;
 
+/**
+ * This class provides a unique key for each method called
+ * by the method interceptor.
+ * The uniqueness come from the class getting the method name 
+ * and all arguments.
+ * 
+ * @author Michael Stadler
+ *
+ */
 public class UniqueKey {
 
 	public String methodName;
@@ -13,6 +22,9 @@ public class UniqueKey {
 
 	}
 
+	/**
+	 * Eclipse generated hashCode :-)
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -22,6 +34,9 @@ public class UniqueKey {
 		return result;
 	}
 
+	/**
+	 * A key is identical if the method name and all arguments are the same.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -40,32 +55,5 @@ public class UniqueKey {
 			return false;
 		return true;
 	}
-	
-//	@Override
-//	public boolean equals(Object other) {
-//
-//		if (other == null){
-//			
-//			System.out.println("Other is null");
-//			return false;}
-//		if (other == this){
-//			System.out.println("Other is this");
-//			return true;}
-//		if (!(other instanceof UniqueKey)){
-//			System.out.println("Other is not a UniqeKey");
-//			return false;}
-//		UniqueKey otherClass = (UniqueKey) other;
-//		
-//			if(this.methodName == otherClass.methodName){
-//				if(this.args.equals(otherClass.args)){
-//					return true;
-//				}
-//			}else{
-//				System.out.println("Method name is not the same");
-//				return false;
-//			}
-//			return false;
-//	}
-
 	
 }
