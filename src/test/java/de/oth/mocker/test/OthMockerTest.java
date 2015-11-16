@@ -24,11 +24,12 @@ public class OthMockerTest
 {
 	
 	  @Test public void testSomeLibraryMethod() {
-	    	List<String>	mockObject	=	mock(ArrayList.class);
-	    	List<String>	mockObject2	=	mock(ArrayList.class);
-	    	mockObject.add("asd");
-	    	mockObject2.add("asd");
-	    	verify(mockObject).add("asd");
+	    	Can can = new Can();
+			Can mock = spy(can);
+			can.setNumber(6);
+			System.out.println((mock.getNumber()));
+			verify(mock,never()).setNumber(6);
+			
 	    }
 
 //	@Test public void testIfSpy()
